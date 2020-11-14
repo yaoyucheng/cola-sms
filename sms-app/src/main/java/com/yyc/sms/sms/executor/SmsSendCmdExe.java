@@ -1,11 +1,14 @@
 package com.yyc.sms.sms.executor;
 
+import com.alibaba.cola.exception.BizException;
 import com.yyc.sms.domain.sms.domainservice.SmsSender;
 import com.yyc.sms.domain.sms.entity.Sms;
 import com.yyc.sms.domain.sms.entity.SmsResponse;
 import com.yyc.sms.domain.sms.gateway.SmsGateway;
+import com.yyc.sms.domain.util.StringUtils;
 import com.yyc.sms.dto.SmsSendCmd;
 import com.yyc.sms.dto.data.SmsResponseDTO;
+import com.yyc.sms.expetion.ErrorCode;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -19,19 +22,30 @@ public class SmsSendCmdExe {
     @Resource
     private SmsGateway smsGateway;
 
-    @Resource
-    private SmsSender smsSender;
-
     public SmsResponseDTO send(SmsSendCmd smsSendCmd) {
 
+        //  check parameter 传参不可为空
+        checkParameter(smsSendCmd);
+
         //  发送短信
-        SmsResponse smsResponse = smsSender.send(buildSendSms(smsSendCmd));
+        SmsResponse smsResponse = SmsSender.send(buildSendSms(smsSendCmd));
 
         //  保存短信信息
         smsGateway.insert(buildInsertSms(smsSendCmd, smsResponse));
 
         //  构造标准返回信息返回
         return buildSmsResponseDTO(smsResponse);
+    }
+
+    private void checkParameter(SmsSendCmd smsSendCmd) {
+        if (StringUtils.isAllNotEmpty(
+                smsSendCmd.getOutId(),
+                smsSendCmd.getPhoneNumberJson(),
+                smsSendCmd.getSmsUpExtendCode(),
+                smsSendCmd.getTemplateParam()
+        )) {
+            throw new BizException(ErrorCode.SMS_REQUEST_PARAMETER_EXCEPTION, "短信请求参数异常");
+        }
     }
 
     /**
@@ -58,9 +72,14 @@ public class SmsSendCmdExe {
      */
     private Sms buildSendSms(SmsSendCmd smsSendCmd) {
 
+        //  入参构建
         //  TODO :构建发送的短信数据
-        return Sms.builder().
-                build();
+        return Sms.builder()
+                .outId(smsSendCmd.getOutId())
+                .phoneNumberJson(smsSendCmd.getPhoneNumberJson())
+                .smsUpExtendCode(smsSendCmd.getSmsUpExtendCode())
+                .templateParam(smsSendCmd.getTemplateParam())
+                .build();
     }
 
     /**

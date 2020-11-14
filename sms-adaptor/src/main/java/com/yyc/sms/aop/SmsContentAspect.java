@@ -1,20 +1,21 @@
 package com.yyc.sms.aop;
 
 import com.alibaba.cola.exception.BizException;
-import com.yyc.sms.api.SmsContextI;
 import com.yyc.sms.domain.util.StringUtils;
 import com.yyc.sms.expetion.ErrorCode;
 import com.yyc.sms.dto.data.SmsContext;
+import com.yyc.sms.sms.context.SmsContextContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -25,23 +26,23 @@ import java.io.IOException;
 @Component
 public class SmsContentAspect {
 
-    @Resource
-    private SmsContextI smsContextI;
-
     /**
      * 定义切入点，切入点为 com.yyc.sms.aop.web.SmsController 中的所有函数
      * 通过@Pointcut注解声明频繁使用的切点表达式
      */
-    @Pointcut("execution(public * com.yyc.sms.aop.web.SmsController.*(..)))")
-    public void SmsContentAspect() {
+    @Pointcut("execution(public * com.yyc.sms.web.SmsController.*(..)))")
+    public void smsContentAspect() {
         //  do nothing
     }
 
     /**
      * @description 在连接点执行之前执行的通知
      */
-    @Before("SmsContentAspect()")
-    public void doBeforeGame(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @Before(value = "smsContentAspect()")
+    public void doBeforeGame() throws IOException {
+
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = servletRequestAttributes.getRequest();
 
         //  短信接口中 Header 中的参数接收
         String smsAccessKey = request.getHeader("sms-access-key");
@@ -54,7 +55,7 @@ public class SmsContentAspect {
         checkParameter(smsAccessKey, smsAccessKeySecret, smsDomain, smsSignName, smsTemplateCode);
 
         //  初始化当前线程的短信环境
-        smsContextI.setSmsContent(
+        SmsContextContainer.setSmsContent(
                 SmsContext.builder()
                         .accessKey(smsAccessKey)
                         .accessKeySecret(smsAccessKeySecret)
@@ -67,10 +68,10 @@ public class SmsContentAspect {
     /**
      * @description 在连接点执行之后执行的通知（返回通知和异常通知的异常）
      */
-    @After("SmsContentAspect()")
+    @After("smsContentAspect()")
     public void doAfterGame() {
         //  清除请求中的短信上下文
-        smsContextI.clean();
+        SmsContextContainer.clean();
     }
 
     /**

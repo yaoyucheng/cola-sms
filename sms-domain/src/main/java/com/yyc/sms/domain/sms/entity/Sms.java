@@ -11,22 +11,14 @@ import lombok.Data;
 public class Sms {
 
     /**
+     * 入参----------------------------------------
+     */
+
+    /**
      * 接收短信的手机号码，JSON数组格式。
      * 实例：["15900000000","13500000000"]
      */
     private String phoneNumberJson;
-
-    /**
-     * 短信签名名称
-     * 实例：阿里云
-     */
-    private String signName;
-
-    /**
-     * 短信模板CODE。请在控制台模板管理页面模板CODE一列查看。
-     * 实例：SMS_152550005
-     */
-    private String templateCode;
 
     /**
      * 短信模板变量对应的实际值，JSON格式。
@@ -43,5 +35,44 @@ public class Sms {
      * 上行短信扩展码，无特殊需要此字段的用户请忽略此字段。
      */
     private String smsUpExtendCode;
+
+
+    /**
+     * sms-config----------------------------------------
+     */
+    /**
+     * 产品域名 domain  dysmsapi.aliyuncs.com
+     */
+    public String domain;
+
+    /**
+     * accessKey
+     */
+    private String accessKey;
+
+    /**
+     * accessKeySecret
+     */
+    private String accessKeySecret;
+
+    /**
+     * 签名
+     */
+    private String signName;
+
+    /**
+     * 模板code
+     */
+    private String templateCode;
+
+
+    /**
+     * sms-identifies-----------------------------------------
+     */
+    /**
+     * 唯一标识
+     */
+    private String identifies;
+
 
 }

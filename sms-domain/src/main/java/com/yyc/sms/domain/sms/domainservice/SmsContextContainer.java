@@ -1,14 +1,11 @@
-package com.yyc.sms.sms;
+package com.yyc.sms.domain.sms.domainservice;
 
-import com.yyc.sms.api.SmsContextI;
 import com.yyc.sms.dto.data.SmsContext;
-import org.springframework.stereotype.Component;
 
 /**
  * @author yuchengyao
  */
-@Component
-public class SmsContextImpl implements SmsContextI {
+public class SmsContextContainer {
 
     /**
      * 线程环境
@@ -20,18 +17,15 @@ public class SmsContextImpl implements SmsContextI {
      */
     private static final SmsContext emptySmsContext = SmsContext.builder().build();
 
-    @Override
-    public SmsContext getSmsContent() {
+    public static SmsContext getSmsContent() {
         return smsContent.get() == null ? SmsContext.builder().build() : emptySmsContext;
     }
 
-    @Override
-    public void setSmsContent(SmsContext smsContext) {
+    public static void setSmsContent(SmsContext smsContext) {
         smsContent.set(smsContext);
     }
 
-    @Override
-    public void clean() {
+    public static void clean() {
         smsContent.set(emptySmsContext);
     }
 }

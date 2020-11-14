@@ -8,15 +8,12 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.yyc.sms.api.SmsContextI;
 import com.yyc.sms.domain.sms.entity.Sms;
 import com.yyc.sms.domain.sms.entity.SmsResponse;
 import com.yyc.sms.domain.util.JsonUtils;
 import com.yyc.sms.expetion.ErrorCode;
 import com.yyc.sms.dto.data.SmsContext;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.annotation.Resource;
 
 /**
  * 短信发送者
@@ -26,14 +23,11 @@ import javax.annotation.Resource;
 @Slf4j
 public class SmsSender {
 
-    @Resource
-    private SmsContextI smsContextI;
-
     public SmsResponse sendBuildSms(Sms sms) {
         return (SmsResponse) send(sms.getPhoneNumberJson(), sms.getTemplateParam());
     }
 
-    public SmsResponse send(Sms sms) {
+    public static SmsResponse send(Sms sms) {
         return (SmsResponse) send(sms.getPhoneNumberJson(), sms.getTemplateParam());
     }
 
@@ -42,13 +36,13 @@ public class SmsSender {
      * @param templateParam
      * @return
      */
-    public SendSmsResponse send(String phoneNumbers, String templateParam) {
+    public static SendSmsResponse send(String phoneNumbers, String templateParam) {
 
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
 
-        SmsContext smsContent = smsContextI.getSmsContent();
+        SmsContext smsContent = SmsContextContainer.getSmsContent();
 
         //初始化acsClient,暂不支持region化
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", smsContent.getAccessKey(), smsContent.getAccessKeySecret());
