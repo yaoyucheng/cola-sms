@@ -3,9 +3,11 @@ package com.yyc.sms.domain.sms.domainservice;
 import com.yyc.sms.dto.data.SmsContext;
 
 /**
+ * 线程中的短信配置
+ *
  * @author yuchengyao
  */
-public class SmsContextContainer {
+public class SmsThreadLocalContextContainer {
 
     /**
      * 线程环境

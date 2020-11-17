@@ -14,6 +14,8 @@ public enum ErrorCode implements ErrorCodeI {
     SMS_CONFIG_PARAMETER_EXCEPTION("SMS_CONFIG_PARAMETER_EXCEPTION", "短信配置参数异常"),
 
     SMS_REQUEST_PARAMETER_EXCEPTION("SMS_REQUEST_PARAMETER_EXCEPTION", "短信请求参数异常"),
+
+    SMS_RECEIVER_HANDLE_NULL("SMS_RECEIVER_HANDLE_NULL", "短信接收者处理器空"),
     ;
 
     private final String errCode;

@@ -42,7 +42,7 @@ public class SmsSender {
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
 
-        SmsContext smsContent = SmsContextContainer.getSmsContent();
+        SmsContext smsContent = SmsThreadLocalContextContainer.getSmsContent();
 
         //初始化acsClient,暂不支持region化
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", smsContent.getAccessKey(), smsContent.getAccessKeySecret());
