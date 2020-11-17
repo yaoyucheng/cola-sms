@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author Frank Zhang
  */
-@SpringBootApplication(scanBasePackages = {"com.yyc.sms.config", "com.alibaba.cola"})
+@SpringBootApplication(scanBasePackages = {"com.yyc.sms.*", "com.alibaba.cola"})
 @MapperScan("com.yyc.sms.repository")
 public class Application {
 

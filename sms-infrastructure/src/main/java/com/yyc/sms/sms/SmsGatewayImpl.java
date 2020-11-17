@@ -1,6 +1,5 @@
 package com.yyc.sms.sms;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yyc.sms.domain.sms.entity.Sms;
 import com.yyc.sms.domain.sms.gateway.SmsGateway;
@@ -35,6 +34,7 @@ public class SmsGatewayImpl implements SmsGateway {
     public List<SmsDTO> getSmsByOutIdsExe(String... outIds) {
 
         QueryWrapper<SmsDO> wrapper = new QueryWrapper<>();
+
 
 //        wrapper.ge("",)
 //        Wrapper<SmsDO> wrapper =

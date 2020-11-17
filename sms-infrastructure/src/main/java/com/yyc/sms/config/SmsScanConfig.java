@@ -10,8 +10,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(value = {
         "com.yyc.sms.domain.sms.domainservice",
+        "com.yyc.sms.sms",
+        "com.gitee.sunchenbin.mybatis.actable.manager.*"
+})
+@MapperScan(value = {
+        "com.gitee.sunchenbin.mybatis.actable.dao.*",
         "com.yyc.sms.sms"
 })
-@MapperScan("com.yyc.sms.sms")
 public class SmsScanConfig {
+
 }
