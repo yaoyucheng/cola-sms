@@ -36,25 +36,6 @@ public class Sms {
      */
     private String smsUpExtendCode;
 
-
-    /**
-     * sms-config----------------------------------------
-     */
-    /**
-     * 产品域名 domain  dysmsapi.aliyuncs.com
-     */
-    public String domain;
-
-    /**
-     * accessKey
-     */
-    private String accessKey;
-
-    /**
-     * accessKeySecret
-     */
-    private String accessKeySecret;
-
     /**
      * 签名
      */
@@ -64,8 +45,7 @@ public class Sms {
      * 模板code
      */
     private String templateCode;
-
-
+    
     /**
      * sms-identifies-----------------------------------------
      */

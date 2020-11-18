@@ -10,18 +10,18 @@ public class SmsContextContainer {
     /**
      * 线程环境
      */
-    private static final ThreadLocal<com.yyc.sms.dto.data.SmsContext> smsContent = new ThreadLocal<>();
+    private static final ThreadLocal<SmsContext> smsContent = new ThreadLocal<>();
 
     /**
      * 无效对象
      */
-    private static final com.yyc.sms.dto.data.SmsContext emptySmsContext = com.yyc.sms.dto.data.SmsContext.builder().build();
+    private static final SmsContext emptySmsContext = SmsContext.builder().build();
 
     public static SmsContext getSmsContent() {
-        return smsContent.get() == null ? com.yyc.sms.dto.data.SmsContext.builder().build() : emptySmsContext;
+        return smsContent.get() == null ? SmsContext.builder().build() : emptySmsContext;
     }
 
-    public static void setSmsContent(com.yyc.sms.dto.data.SmsContext smsContext) {
+    public static void setSmsContent(SmsContext smsContext) {
         smsContent.set(smsContext);
     }
 

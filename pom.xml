@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.alibaba.demo</groupId>
+    <groupId>com.yyc.sms</groupId>
     <artifactId>sms</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
@@ -35,27 +36,27 @@
             <!--Framework End-->
             <!--Project modules-->
             <dependency>
-                <groupId>com.alibaba.demo</groupId>
+                <groupId>com.yyc.sms</groupId>
                 <artifactId>sms-adaptor</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.demo</groupId>
+                <groupId>com.yyc.sms</groupId>
                 <artifactId>sms-client</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.demo</groupId>
+                <groupId>com.yyc.sms</groupId>
                 <artifactId>sms-app</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.demo</groupId>
+                <groupId>com.yyc.sms</groupId>
                 <artifactId>sms-domain</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.demo</groupId>
+                <groupId>com.yyc.sms</groupId>
                 <artifactId>sms-infrastructure</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
@@ -143,6 +144,12 @@
                 <artifactId>hutool-all</artifactId>
                 <version>5.5.0</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>1.1.20</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -167,11 +174,14 @@
             </plugins>
         </pluginManagement>
     </build>
-<modules>  <module>sms-client</module>
-    <module>sms-adaptor</module>
-    <module>sms-app</module>
-    <module>sms-domain</module>
-    <module>sms-infrastructure</module>
-    <module>start</module>
-  </modules>
+
+
+    <modules>
+        <module>sms-client</module>
+        <module>sms-adaptor</module>
+        <module>sms-app</module>
+        <module>sms-domain</module>
+        <module>sms-infrastructure</module>
+        <module>start</module>
+    </modules>
 </project>

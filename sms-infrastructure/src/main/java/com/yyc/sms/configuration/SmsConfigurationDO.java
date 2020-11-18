@@ -17,23 +17,6 @@ import lombok.Data;
 public class SmsConfigurationDO extends BaseDO {
 
     /**
-     * 短信签名名称
-     * 实例：阿里云
-     */
-    @Column(name = "sms_sign_name", type = MySqlTypeConstant.VARCHAR, comment = "短信签名名称")
-    @TableField(value = "sms_sign_name")
-    private String signName;
-
-    /**
-     * 短信模板CODE。请在控制台模板管理页面模板CODE一列查看。
-     * 实例：SMS_152550005
-     */
-    @Column(name = "sms_template_code", type = MySqlTypeConstant.VARCHAR, comment = "短信模板CODE。请在控制台模板管理页面模板CODE一列查看。")
-    @TableField(value = "sms_template_code")
-    private String templateCode;
-
-
-    /**
      * 产品域名 domain  dysmsapi.aliyuncs.com
      */
     @Column(name = "sms_domain", type = MySqlTypeConstant.VARCHAR, comment = "产品域名")

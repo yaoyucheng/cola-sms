@@ -11,8 +11,9 @@ import com.aliyuncs.profile.IClientProfile;
 import com.yyc.sms.domain.sms.entity.Sms;
 import com.yyc.sms.domain.sms.entity.SmsResponse;
 import com.yyc.sms.domain.util.JsonUtils;
-import com.yyc.sms.expetion.ErrorCode;
 import com.yyc.sms.dto.data.SmsContext;
+import com.yyc.sms.expetion.ErrorCode;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -23,12 +24,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SmsSender {
 
-    public SmsResponse sendBuildSms(Sms sms) {
-        return (SmsResponse) send(sms.getPhoneNumberJson(), sms.getTemplateParam());
-    }
-
     public static SmsResponse send(Sms sms) {
-        return (SmsResponse) send(sms.getPhoneNumberJson(), sms.getTemplateParam());
+        return (SmsResponse) send(
+                sms.getPhoneNumberJson(),
+                sms.getTemplateParam(),
+                sms.getSignName(),
+                sms.getTemplateCode());
     }
 
     /**
@@ -36,7 +37,10 @@ public class SmsSender {
      * @param templateParam
      * @return
      */
-    public static SendSmsResponse send(String phoneNumbers, String templateParam) {
+    public static SendSmsResponse send(@NonNull String phoneNumbers,
+                                       @NonNull String templateParam,
+                                       @NonNull String signName,
+                                       @NonNull String templateCode) {
 
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -56,10 +60,10 @@ public class SmsSender {
         request.setPhoneNumbers(phoneNumbers);
 
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName(smsContent.getSignName());
+        request.setSignName(signName);
 
         //必填:短信模板-可在短信控制台中找到
-        request.setTemplateCode(smsContent.getTemplateCode());
+        request.setTemplateCode(templateCode);
 
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
         request.setTemplateParam(templateParam);

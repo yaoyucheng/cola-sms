@@ -40,6 +40,6 @@ public class SmsController {
      */
     @GetMapping
     public SingleResponse<List<SmsDTO>> get(@RequestParam String outIds) {
-        return SingleResponse.of(smsServiceI.getSmsByOutIds());
+        return SingleResponse.of(smsServiceI.getSmsByOutIds(outIds.split(",")));
     }
 }

@@ -30,4 +30,14 @@ public class SmsSendCmd {
      */
     private String smsUpExtendCode;
 
+    /**
+     * 签名
+     */
+    private String signName;
+
+    /**
+     * 模板code
+     */
+    private String templateCode;
+
 }

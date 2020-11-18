@@ -4,6 +4,7 @@ import com.alibaba.cola.exception.BizException;
 import com.yyc.sms.domain.sms.domainservice.SmsSender;
 import com.yyc.sms.domain.sms.entity.Sms;
 import com.yyc.sms.domain.sms.entity.SmsResponse;
+import com.yyc.sms.domain.sms.gateway.SmsConfigurationGateway;
 import com.yyc.sms.domain.sms.gateway.SmsGateway;
 import com.yyc.sms.domain.util.StringUtils;
 import com.yyc.sms.dto.SmsSendCmd;
@@ -12,6 +13,7 @@ import com.yyc.sms.expetion.ErrorCode;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 
 /**
  * @author 10916
@@ -22,6 +24,9 @@ public class SmsSendCmdExe {
     @Resource
     private SmsGateway smsGateway;
 
+    @Resource
+    private SmsConfigurationGateway smsConfigurationGateway;
+
     public SmsResponseDTO send(SmsSendCmd smsSendCmd) {
 
         //  check parameter 传参不可为空
@@ -31,7 +36,7 @@ public class SmsSendCmdExe {
         SmsResponse smsResponse = SmsSender.send(buildSendSms(smsSendCmd));
 
         //  保存短信信息
-        smsGateway.insert(buildInsertSms(smsSendCmd, smsResponse));
+        smsGateway.insert(buildInsertSms(smsSendCmd));
 
         //  构造标准返回信息返回
         return buildSmsResponseDTO(smsResponse);
@@ -86,14 +91,18 @@ public class SmsSendCmdExe {
      * 构建新增的短信数据
      *
      * @param smsSendCmd
-     * @param smsResponse
      * @return
      */
-    private Sms buildInsertSms(SmsSendCmd smsSendCmd, SmsResponse smsResponse) {
+    private Sms buildInsertSms(SmsSendCmd smsSendCmd) {
 
         //  TODO:构建新增的短信数据
-        return Sms.builder().
-                build();
+        return Sms.builder()
+                .identifies(UUID.randomUUID().toString())
+                .outId(smsSendCmd.getOutId())
+                .phoneNumberJson(smsSendCmd.getPhoneNumberJson())
+                .smsUpExtendCode(smsSendCmd.getSmsUpExtendCode())
+                .templateParam(smsSendCmd.getTemplateParam())
+                .build();
     }
 
 }

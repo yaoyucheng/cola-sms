@@ -33,11 +33,15 @@ public class SmsReceiverListenerContainer {
     private MessageListener messageListener;
 
     /**
+     * 线程组
+     */
+    private DefaultAlicomMessagePuller puller;
+
+    /**
      * 线程初始化
      */
     public SmsReceiverListenerContainer initMessageListener() {
 
-        DefaultAlicomMessagePuller puller = new DefaultAlicomMessagePuller();
         puller = new DefaultAlicomMessagePuller();
 
         //设置异步线程池大小及任务队列的大小，还有无数据线程休眠时间
@@ -49,8 +53,7 @@ public class SmsReceiverListenerContainer {
         //和服务端联调问题时开启,平时无需开启，消耗性能
         puller.openDebugLog(false);
 
-        if (!StringUtils.isAllNotEmpty(this.accessKeyId, this.accessKeySecret, this.messageType, this.queueName)
-                || this.messageListener == null) {
+        if (!StringUtils.isAllNotEmpty(this.accessKeyId, this.accessKeySecret, this.messageType, this.queueName)) {
 
             //  短信配置异常
             throw new BizException(ErrorCode.SMS_CONFIG_PARAMETER_EXCEPTION, "短信参数异常");
@@ -73,5 +76,7 @@ public class SmsReceiverListenerContainer {
         return this;
     }
 
-
+    public void stop() {
+        this.puller.stop();
+    }
 }
