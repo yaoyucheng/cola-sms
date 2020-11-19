@@ -20,7 +20,7 @@ public class SmsThreadLocalContextContainer {
     private static final SmsContext emptySmsContext = SmsContext.builder().build();
 
     public static SmsContext getSmsContent() {
-        return smsContent.get() == null ? SmsContext.builder().build() : emptySmsContext;
+        return emptySmsContext.equals(smsContent.get()) || smsContent.get() == null ? emptySmsContext : smsContent.get();
     }
 
     public static void setSmsContent(SmsContext smsContext) {

@@ -6,6 +6,7 @@ import com.yyc.sms.dto.data.SmsDTO;
 import com.yyc.sms.dto.data.SmsResponseDTO;
 import com.yyc.sms.sms.executor.SmsSendCmdExe;
 import com.yyc.sms.sms.executor.query.SmsByOutIdsExe;
+import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,7 +30,7 @@ public class SmsServiceImpl implements SmsServiceI {
     }
 
     @Override
-    public List<SmsDTO> getSmsByOutIds(String... outIds) {
+    public List<SmsDTO> getSmsByOutIds(@NonNull String... outIds) {
         return smsByOutIdsExe.getSmsByOutIdsExe(outIds);
     }
 }

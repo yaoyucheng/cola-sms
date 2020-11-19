@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SmsSender {
 
     public static SmsResponse send(Sms sms) {
-        return (SmsResponse) send(
+        return send(
                 sms.getPhoneNumberJson(),
                 sms.getTemplateParam(),
                 sms.getSignName(),
@@ -37,10 +37,10 @@ public class SmsSender {
      * @param templateParam
      * @return
      */
-    public static SendSmsResponse send(@NonNull String phoneNumbers,
-                                       @NonNull String templateParam,
-                                       @NonNull String signName,
-                                       @NonNull String templateCode) {
+    public static SmsResponse send(@NonNull String phoneNumbers,
+                                   @NonNull String templateParam,
+                                   @NonNull String signName,
+                                   @NonNull String templateCode) {
 
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -78,6 +78,17 @@ public class SmsSender {
             log.error(e.getMessage(), e);
             throw new BizException(ErrorCode.SMS_ALIBABA_EXCEPTION, e.getMessage());
         }
-        return sendSmsResponse;
+
+
+        return buildSmsResponse(sendSmsResponse);
+    }
+
+    private static SmsResponse buildSmsResponse(SendSmsResponse sendSmsResponse) {
+        return SmsResponse.builder()
+                .bizId(sendSmsResponse.getBizId())
+                .code(sendSmsResponse.getCode())
+                .message(sendSmsResponse.getMessage())
+                .requestId(sendSmsResponse.getRequestId())
+                .build();
     }
 }

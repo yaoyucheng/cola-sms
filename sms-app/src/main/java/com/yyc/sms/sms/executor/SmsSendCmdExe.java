@@ -10,6 +10,7 @@ import com.yyc.sms.domain.util.StringUtils;
 import com.yyc.sms.dto.SmsSendCmd;
 import com.yyc.sms.dto.data.SmsResponseDTO;
 import com.yyc.sms.expetion.ErrorCode;
+import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -27,7 +28,7 @@ public class SmsSendCmdExe {
     @Resource
     private SmsConfigurationGateway smsConfigurationGateway;
 
-    public SmsResponseDTO send(SmsSendCmd smsSendCmd) {
+    public SmsResponseDTO send(@NonNull SmsSendCmd smsSendCmd) {
 
         //  check parameter 传参不可为空
         checkParameter(smsSendCmd);
@@ -75,7 +76,7 @@ public class SmsSendCmdExe {
      * @param smsSendCmd
      * @return
      */
-    private Sms buildSendSms(SmsSendCmd smsSendCmd) {
+    private Sms buildSendSms(@NonNull SmsSendCmd smsSendCmd) {
 
         //  入参构建
         //  TODO :构建发送的短信数据
@@ -84,6 +85,8 @@ public class SmsSendCmdExe {
                 .phoneNumberJson(smsSendCmd.getPhoneNumberJson())
                 .smsUpExtendCode(smsSendCmd.getSmsUpExtendCode())
                 .templateParam(smsSendCmd.getTemplateParam())
+                .signName(smsSendCmd.getSignName())
+                .templateCode(smsSendCmd.getTemplateCode())
                 .build();
     }
 

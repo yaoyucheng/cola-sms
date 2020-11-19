@@ -5,6 +5,7 @@ import com.yyc.sms.api.SmsConfigurationServiceI;
 import com.yyc.sms.domain.sms.domainservice.SmsThreadLocalContextContainer;
 import com.yyc.sms.domain.util.StringUtils;
 import com.yyc.sms.dto.SmsConfigurationQry;
+import com.yyc.sms.dto.data.SmsConfigurationDTO;
 import com.yyc.sms.dto.data.SmsContext;
 import com.yyc.sms.expetion.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
@@ -55,12 +56,13 @@ public class SmsContentAspect {
         //  参数校验
         checkParameter(smsAccessKey);
 
-        smsConfigurationServiceI.getConfiguration(smsAccessKey);
+        SmsConfigurationDTO configuration = smsConfigurationServiceI.getConfiguration(smsAccessKey);
         //  重载配置
         //  初始化当前线程的短信环境
         SmsThreadLocalContextContainer.setSmsContent(
                 SmsContext.builder()
-                        .accessKey(smsAccessKey)
+                        .accessKey(configuration.getAccessKey())
+                        .accessKeySecret(configuration.getAccessKeySecret())
                         .build());
     }
 
