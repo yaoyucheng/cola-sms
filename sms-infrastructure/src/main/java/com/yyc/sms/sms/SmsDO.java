@@ -76,10 +76,49 @@ public class SmsDO extends BaseDO {
      * sms-identifies-----------------------------------------
      */
 
-//    /**
-//     * 唯一标识
-//     */
-//    @Column(name = "sms_identifies", type = MySqlTypeConstant.VARCHAR, comment = "唯一标识")
-//    @TableField(value = "sms_identifies")
-//    private String identifies;
+    /**
+     * 唯一标识
+     */
+    @Column(name = "sms_identifies", type = MySqlTypeConstant.VARCHAR, comment = "唯一标识")
+    @TableField(value = "sms_identifies")
+    private String identifies;
+
+    /**
+     * 请求id
+     */
+    @Column(name = "sms_request_id", type = MySqlTypeConstant.VARCHAR, comment = "唯一标识")
+    @TableField(value = "sms_request_id")
+    private String requestId;
+
+    /**
+     * 发送回执ID，可根据该ID在接口QuerySendDetails中查询具体的发送状态。
+     */
+    @Column(name = "sms_biz_id", type = MySqlTypeConstant.VARCHAR, comment = "唯一标识")
+    @TableField(value = "sms_biz_id")
+    private String bizId;
+
+    /**
+     * 请求状态码。
+     */
+    @Column(name = "sms_code", type = MySqlTypeConstant.VARCHAR, comment = "唯一标识")
+    @TableField(value = "sms_code")
+    private String code;
+
+    /**
+     * 状态码的描述。
+     */
+    @Column(name = "sms_message", type = MySqlTypeConstant.VARCHAR, comment = "唯一标识")
+    @TableField(value = "sms_message")
+    private String message;
+
+    /**
+     * 配置参数-------------------------------------------------
+     */
+
+    /**
+     * accessKey
+     */
+    @Column(name = "sms_access_key", type = MySqlTypeConstant.VARCHAR, comment = "唯一标识")
+    @TableField(value = "sms_access_key")
+    private String accessKey;
 }

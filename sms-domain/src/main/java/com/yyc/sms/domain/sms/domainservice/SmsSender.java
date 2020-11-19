@@ -24,7 +24,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SmsSender {
 
-    public static SmsResponse send(Sms sms) {
+    /**
+     * 发送短信
+     *
+     * @param sms 短信封装
+     * @return
+     */
+    public static SmsResponse send(@NonNull Sms sms) {
         return send(
                 sms.getPhoneNumberJson(),
                 sms.getTemplateParam(),
@@ -33,9 +39,13 @@ public class SmsSender {
     }
 
     /**
-     * @param phoneNumbers
-     * @param templateParam
-     * @return
+     * 发送短信
+     *
+     * @param phoneNumbers  发送的电话号
+     * @param templateParam 模板参数
+     * @param signName      签名
+     * @param templateCode  模板code
+     * @return 短信发送返回值
      */
     public static SmsResponse send(@NonNull String phoneNumbers,
                                    @NonNull String templateParam,
@@ -69,7 +79,7 @@ public class SmsSender {
         request.setTemplateParam(templateParam);
 
         //hint 此处可能会抛出异常，注意catch
-        SendSmsResponse sendSmsResponse = null;
+        SendSmsResponse sendSmsResponse;
 
         log.info("请求参数：->{}", JsonUtils.toString(request));
         try {
@@ -79,11 +89,10 @@ public class SmsSender {
             throw new BizException(ErrorCode.SMS_ALIBABA_EXCEPTION, e.getMessage());
         }
 
-
         return buildSmsResponse(sendSmsResponse);
     }
 
-    private static SmsResponse buildSmsResponse(SendSmsResponse sendSmsResponse) {
+    private static SmsResponse buildSmsResponse(@NonNull SendSmsResponse sendSmsResponse) {
         return SmsResponse.builder()
                 .bizId(sendSmsResponse.getBizId())
                 .code(sendSmsResponse.getCode())

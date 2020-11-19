@@ -17,4 +17,9 @@ public class SmsResponseDTO {
     private String code;
 
     private String message;
+
+    /**
+     * 短信唯一标识
+     */
+    private String identifies;
 }

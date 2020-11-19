@@ -48,8 +48,7 @@ public class SmsReceiverExe {
             restartSmsReceiverContainer();
         }
     }
-
-
+    
     /**
      * 启动运行
      * 短信接收者

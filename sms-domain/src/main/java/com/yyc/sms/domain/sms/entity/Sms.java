@@ -11,6 +11,15 @@ import lombok.Data;
 public class Sms {
 
     /**
+     * sms-identifies-----------------------------------------
+     */
+
+    /**
+     * 唯一标识
+     */
+    private String identifies;
+
+    /**
      * 入参----------------------------------------
      */
 
@@ -45,14 +54,37 @@ public class Sms {
      * 模板code
      */
     private String templateCode;
-    
-    /**
-     * sms-identifies-----------------------------------------
-     */
-    /**
-     * 唯一标识
-     */
-    private String identifies;
 
+    /**
+     * 返回参数-----------------------------------------------
+     */
 
+    /**
+     * 请求id
+     */
+    private String requestId;
+
+    /**
+     * 发送回执ID，可根据该ID在接口QuerySendDetails中查询具体的发送状态。
+     */
+    private String bizId;
+
+    /**
+     * 请求状态码。
+     */
+    private String code;
+
+    /**
+     * 状态码的描述。
+     */
+    private String message;
+
+    /**
+     * 配置参数-------------------------------------------------
+     */
+
+    /**
+     * accessKey
+     */
+    private String accessKey;
 }

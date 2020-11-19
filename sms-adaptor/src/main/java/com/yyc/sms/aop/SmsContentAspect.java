@@ -58,6 +58,7 @@ public class SmsContentAspect {
 
         SmsConfigurationDTO configuration = smsConfigurationServiceI.getConfiguration(smsAccessKey);
         //  重载配置
+
         //  初始化当前线程的短信环境
         SmsThreadLocalContextContainer.setSmsContent(
                 SmsContext.builder()

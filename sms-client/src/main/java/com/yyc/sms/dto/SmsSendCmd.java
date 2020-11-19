@@ -39,5 +39,4 @@ public class SmsSendCmd {
      * 模板code
      */
     private String templateCode;
-
 }
