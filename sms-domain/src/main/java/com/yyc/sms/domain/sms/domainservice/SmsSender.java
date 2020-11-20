@@ -27,15 +27,17 @@ public class SmsSender {
     /**
      * 发送短信
      *
-     * @param sms 短信封装
+     * @param sms             短信封装
+     * @param smsUpExtendCode 上行扩展字段
      * @return
      */
-    public static SmsResponse send(@NonNull Sms sms) {
+    public static SmsResponse send(@NonNull Sms sms, @NonNull String smsUpExtendCode) {
         return send(
                 sms.getPhoneNumberJson(),
                 sms.getTemplateParam(),
                 sms.getSignName(),
-                sms.getTemplateCode());
+                sms.getTemplateCode(),
+                smsUpExtendCode);
     }
 
     /**
@@ -50,7 +52,8 @@ public class SmsSender {
     public static SmsResponse send(@NonNull String phoneNumbers,
                                    @NonNull String templateParam,
                                    @NonNull String signName,
-                                   @NonNull String templateCode) {
+                                   @NonNull String templateCode,
+                                   @NonNull String smsUpExtendCode) {
 
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -69,6 +72,9 @@ public class SmsSender {
         //必填:待发送手机号
         request.setPhoneNumbers(phoneNumbers);
 
+        //选填:短信上行code
+        request.setSmsUpExtendCode(smsUpExtendCode);
+        
         //必填:短信签名-可在短信控制台中找到
         request.setSignName(signName);
 

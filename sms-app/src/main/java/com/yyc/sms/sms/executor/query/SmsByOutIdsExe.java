@@ -18,8 +18,8 @@ public class SmsByOutIdsExe {
     @Resource
     private SmsGateway smsGateway;
 
-    public List<SmsDTO> getSmsByOutIdsExe(String... outIds) {
-        return smsGateway.getSmsByOutIdsExe(outIds);
+    public List<SmsDTO> getSmsByOutIdsExe(String... smsUpExtendCode) {
+        return smsGateway.getSmsByOutIdsExe(smsUpExtendCode);
     }
 
 }

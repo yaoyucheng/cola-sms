@@ -1,9 +1,11 @@
 package com.yyc.sms.sms;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yyc.sms.domain.sms.entity.Sms;
 import com.yyc.sms.domain.sms.gateway.SmsGateway;
 import com.yyc.sms.dto.data.SmsDTO;
+import lombok.NonNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +33,23 @@ public class SmsGatewayImpl implements SmsGateway {
     }
 
     @Override
-    public List<SmsDTO> getSmsByOutIdsExe(String... outIds) {
+    public void update(@NonNull String identifies, @NonNull Sms sms) {
+
+        SmsDO smsDO = new SmsDO();
+
+        BeanUtils.copyProperties(sms, smsDO);
+
+        UpdateWrapper<SmsDO> smsDOUpdateWrapper = new UpdateWrapper<>();
+
+        //  更具smsUpExtendCode 字段更新值
+        smsDOUpdateWrapper
+                .eq("sms_identifies", identifies);
+
+        smsMapper.update(smsDO, smsDOUpdateWrapper);
+    }
+
+    @Override
+    public List<SmsDTO> getSmsByOutIdsExe(String... smsUpExtendCodes) {
 
         QueryWrapper<SmsDO> wrapper = new QueryWrapper<>();
 

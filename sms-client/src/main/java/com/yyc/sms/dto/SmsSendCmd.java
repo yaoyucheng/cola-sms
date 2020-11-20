@@ -9,6 +9,11 @@ import lombok.Data;
 public class SmsSendCmd {
 
     /**
+     * 唯一标识
+     */
+    private String identifies;
+
+    /**
      * 接收短信的手机号码，JSON数组格式。
      * 实例：["15900000000","13500000000"]
      */
@@ -21,7 +26,7 @@ public class SmsSendCmd {
     private String templateParam;
 
     /**
-     * 流水字段
+     * 流水字段 无限制
      */
     private String outId;
 

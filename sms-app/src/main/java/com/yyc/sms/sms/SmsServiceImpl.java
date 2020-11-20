@@ -8,6 +8,7 @@ import com.yyc.sms.sms.executor.SmsSendCmdExe;
 import com.yyc.sms.sms.executor.query.SmsByOutIdsExe;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,13 +25,20 @@ public class SmsServiceImpl implements SmsServiceI {
     @Resource
     private SmsByOutIdsExe smsByOutIdsExe;
 
+    /**
+     * 发送消息
+     *
+     * @param smsSendCmd
+     * @return
+     */
     @Override
-    public SmsResponseDTO send(SmsSendCmd smsSendCmd) {
+    @Transactional(rollbackFor = Exception.class)
+    public SmsResponseDTO send(@NonNull SmsSendCmd smsSendCmd) {
         return smsSendCmdExe.send(smsSendCmd);
     }
 
     @Override
-    public List<SmsDTO> getSmsByOutIds(@NonNull String... outIds) {
-        return smsByOutIdsExe.getSmsByOutIdsExe(outIds);
+    public List<SmsDTO> getSmsByOutIds(@NonNull String... smsUpExtendCodes) {
+        return smsByOutIdsExe.getSmsByOutIdsExe(smsUpExtendCodes);
     }
 }

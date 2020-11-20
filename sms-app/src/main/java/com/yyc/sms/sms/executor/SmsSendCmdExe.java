@@ -1,11 +1,11 @@
 package com.yyc.sms.sms.executor;
 
+import cn.hutool.core.util.RandomUtil;
 import com.alibaba.cola.exception.BizException;
 import com.yyc.sms.domain.sms.domainservice.SmsSender;
 import com.yyc.sms.domain.sms.domainservice.SmsThreadLocalContextContainer;
 import com.yyc.sms.domain.sms.entity.Sms;
 import com.yyc.sms.domain.sms.entity.SmsResponse;
-import com.yyc.sms.domain.sms.gateway.SmsConfigurationGateway;
 import com.yyc.sms.domain.sms.gateway.SmsGateway;
 import com.yyc.sms.domain.util.StringUtils;
 import com.yyc.sms.dto.SmsSendCmd;
@@ -31,31 +31,40 @@ public class SmsSendCmdExe {
         //  check parameter 传参不可为空
         checkParameter(smsSendCmd);
 
-        //  短信全局唯一标识
-        String smsUuid = getIdentifies();
+        //  短信全局唯一标识，短信上行扩展字段
+        String smsUpExtendCode = getSmsUpExtendCode();
 
-        //  发送短信
-        SmsResponse smsResponse = SmsSender.send(buildSendSms(smsSendCmd));
+        //  短信全局唯一标识
+        String identifies = getIdentifies();
 
         //  保存短信信息
-        smsGateway.insert(buildInsertSms(smsSendCmd, smsResponse, smsUuid));
+        smsGateway.insert(buildInsertSms(smsSendCmd, smsUpExtendCode, identifies));
+
+        //  发送短信
+        SmsResponse smsResponse = SmsSender.send(buildSendSms(smsSendCmd), smsUpExtendCode);
+
+        //  更新短信发送结果
+        smsGateway.update(identifies, buildUpdateSms(smsResponse));
 
         //  构造标准返回信息返回
-        return buildSmsResponseDTO(smsResponse, smsUuid);
+        return buildSmsResponseDTO(smsResponse, smsUpExtendCode);
     }
 
-    /**
-     * 获取短信全局唯一标识
-     *
-     * @return
-     */
     private String getIdentifies() {
         return UUID.randomUUID().toString();
     }
 
+    /**
+     * 获取一个6位随机数
+     *
+     * @return
+     */
+    private String getSmsUpExtendCode() {
+        return String.valueOf(RandomUtil.randomInt(100000, 999999));
+    }
+
     private void checkParameter(@NonNull SmsSendCmd smsSendCmd) {
         if (StringUtils.isAllNotEmpty(
-                smsSendCmd.getOutId(),
                 smsSendCmd.getPhoneNumberJson(),
                 smsSendCmd.getSmsUpExtendCode(),
                 smsSendCmd.getTemplateParam()
@@ -70,7 +79,7 @@ public class SmsSendCmdExe {
      * @param smsResponse
      * @return
      */
-    private SmsResponseDTO buildSmsResponseDTO(@NonNull SmsResponse smsResponse, @NonNull String smsUuid) {
+    private SmsResponseDTO buildSmsResponseDTO(@NonNull SmsResponse smsResponse, @NonNull String smsUpExtendCode) {
         //  构造标准返回值
         return SmsResponseDTO.builder()
 
@@ -81,7 +90,7 @@ public class SmsSendCmdExe {
                 .requestId(smsResponse.getRequestId())
 
                 //  短信全局唯一标识
-                .identifies(smsUuid)
+                .smsUpExtendCode(smsUpExtendCode)
                 .build();
     }
 
@@ -111,27 +120,42 @@ public class SmsSendCmdExe {
      * @param smsSendCmd
      * @return
      */
-    private Sms buildInsertSms(@NonNull SmsSendCmd smsSendCmd, @NonNull SmsResponse smsResponse, @NonNull String smsUuid) {
+    private Sms buildInsertSms(
+            @NonNull SmsSendCmd smsSendCmd,
+            @NonNull String smsUpExtendCode,
+            @NonNull String identifies) {
 
-        //  TODO:构建新增的短信数据
         return Sms.builder()
                 //  唯一标识
-                .identifies(smsUuid)
+                .identifies(identifies)
+                //  短信上行参数
+                .smsUpExtendCode(smsUpExtendCode)
 
                 //  smsSendCmd 请求参数
                 .outId(smsSendCmd.getOutId())
                 .phoneNumberJson(smsSendCmd.getPhoneNumberJson())
-                .smsUpExtendCode(smsSendCmd.getSmsUpExtendCode())
                 .templateParam(smsSendCmd.getTemplateParam())
+                .signName(smsSendCmd.getSignName())
+                .templateCode(smsSendCmd.getTemplateCode())
 
+                //  sms config 参数
+                .accessKey(SmsThreadLocalContextContainer.getSmsContent().getAccessKey())
+                .build();
+    }
+
+    /**
+     * 构建跟新的sms
+     *
+     * @return
+     */
+    private Sms buildUpdateSms(@NonNull SmsResponse smsResponse) {
+
+        return Sms.builder()
                 //  smsResponse 返回参数
                 .requestId(smsResponse.getRequestId())
                 .bizId(smsResponse.getBizId())
                 .code(smsResponse.getCode())
                 .message(smsResponse.getMessage())
-
-                //  sms config 参数
-                .accessKey(SmsThreadLocalContextContainer.getSmsContent().getAccessKey())
                 .build();
     }
 

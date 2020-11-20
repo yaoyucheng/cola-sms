@@ -35,11 +35,11 @@ public class SmsController {
     /**
      * 获取信息状态
      *
-     * @param outIds
+     * @param smsUpExtendCodes
      * @return
      */
     @GetMapping
-    public SingleResponse<List<SmsDTO>> get(@RequestParam String outIds) {
-        return SingleResponse.of(smsServiceI.getSmsByOutIds(outIds.split(",")));
+    public SingleResponse<List<SmsDTO>> get(@RequestParam String smsUpExtendCodes) {
+        return SingleResponse.of(smsServiceI.getSmsByOutIds(smsUpExtendCodes.split(",")));
     }
 }

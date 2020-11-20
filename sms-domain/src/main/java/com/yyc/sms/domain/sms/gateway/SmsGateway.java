@@ -11,11 +11,19 @@ import java.util.List;
 public interface SmsGateway {
 
     /**
-     * 保存短信
+     * 保存短信信息
      *
      * @param sms
      */
     void insert(Sms sms);
+
+    /**
+     * 更新短信信息
+     *
+     * @param smsUpExtendCode 唯一标识
+     * @param sms
+     */
+    void update(String smsUpExtendCode, Sms sms);
 
     /**
      * 获取短信具体信息

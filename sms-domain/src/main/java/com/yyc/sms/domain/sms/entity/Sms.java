@@ -11,13 +11,15 @@ import lombok.Data;
 public class Sms {
 
     /**
+     * 唯一标识
      * sms-identifies-----------------------------------------
      */
+    private String identifies;
 
     /**
-     * 唯一标识
+     * 上行短信扩展码，无特殊需要此字段的用户请忽略此字段。
      */
-    private String identifies;
+    private String smsUpExtendCode;
 
     /**
      * 入参----------------------------------------
@@ -25,7 +27,7 @@ public class Sms {
 
     /**
      * 接收短信的手机号码，JSON数组格式。
-     * 实例：["15900000000","13500000000"]
+     * 实例："18447073720,15849176976"
      */
     private String phoneNumberJson;
 
@@ -39,11 +41,6 @@ public class Sms {
      * 流水字段
      */
     private String outId;
-
-    /**
-     * 上行短信扩展码，无特殊需要此字段的用户请忽略此字段。
-     */
-    private String smsUpExtendCode;
 
     /**
      * 签名

@@ -12,7 +12,8 @@ import org.springframework.context.annotation.Configuration;
         "com.yyc.sms.domain.sms.domainservice",
         "com.yyc.sms.sms",
         "com.yyc.sms.configuration",
-        "com.gitee.sunchenbin.mybatis.actable.manager.*"
+        "com.gitee.sunchenbin.mybatis.actable.manager.*",
+        "com.yyc.sms.handler"
 })
 @MapperScan(value = {
         "com.gitee.sunchenbin.mybatis.actable.dao.*",
