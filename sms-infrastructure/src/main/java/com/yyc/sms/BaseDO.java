@@ -35,7 +35,7 @@ public class BaseDO {
      * 数据状态
      */
     @Column(name = "status", type = MySqlTypeConstant.INT, length = 3, comment = "数据状态（新建20，删除21）")
-    @TableField(value = "status")
+    @TableField(value = "status", fill = FieldFill.INSERT)
     private Integer status;
 
     /**
