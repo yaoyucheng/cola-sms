@@ -1,4 +1,4 @@
-package com.yyc.sms.dto;
+package com.yyc.sms.dto.qry;
 
 import com.alibaba.cola.dto.Query;
 import lombok.Data;

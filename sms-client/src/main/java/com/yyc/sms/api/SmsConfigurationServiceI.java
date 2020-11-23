@@ -1,6 +1,6 @@
 package com.yyc.sms.api;
 
-import com.yyc.sms.dto.SmsConfigurationQry;
+import com.yyc.sms.dto.qry.SmsConfigurationQry;
 import com.yyc.sms.dto.data.SmsConfigurationDTO;
 
 import java.util.List;

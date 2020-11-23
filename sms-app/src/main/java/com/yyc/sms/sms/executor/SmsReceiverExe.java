@@ -5,7 +5,7 @@ import com.gitee.sunchenbin.mybatis.actable.manager.handler.StartUpHandler;
 import com.yyc.sms.api.SmsConfigurationServiceI;
 import com.yyc.sms.api.SmsServiceI;
 import com.yyc.sms.domain.sms.domainservice.SmsReceiverListenerContainer;
-import com.yyc.sms.dto.SmsConfigurationQry;
+import com.yyc.sms.dto.qry.SmsConfigurationQry;
 import com.yyc.sms.dto.data.SmsConfigurationDTO;
 import org.springframework.stereotype.Component;
 

@@ -2,6 +2,7 @@ package com.yyc.sms.domain.sms.gateway;
 
 import com.yyc.sms.domain.sms.entity.Sms;
 import com.yyc.sms.dto.data.SmsDTO;
+import com.yyc.sms.dto.qry.SmsQry;
 
 import java.util.List;
 
@@ -26,10 +27,11 @@ public interface SmsGateway {
     void update(String smsUpExtendCode, Sms sms);
 
     /**
-     * 获取短信具体信息
+     * 获取短信列表
      *
-     * @param outIds 外部唯一标识
+     * @param smsQry
      * @return
      */
-    List<SmsDTO> getSmsByOutIdsExe(String... outIds);
+    List<SmsDTO> list(SmsQry smsQry);
+
 }

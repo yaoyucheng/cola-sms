@@ -4,7 +4,6 @@ import com.alibaba.cola.exception.BizException;
 import com.yyc.sms.api.SmsConfigurationServiceI;
 import com.yyc.sms.domain.sms.domainservice.SmsThreadLocalContextContainer;
 import com.yyc.sms.domain.util.StringUtils;
-import com.yyc.sms.dto.SmsConfigurationQry;
 import com.yyc.sms.dto.data.SmsConfigurationDTO;
 import com.yyc.sms.dto.data.SmsContext;
 import com.yyc.sms.expetion.ErrorCode;

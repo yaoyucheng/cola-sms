@@ -1,12 +1,12 @@
 package com.yyc.sms.api;
 
-import com.alibaba.cola.dto.Response;
-import com.alibaba.cola.dto.SingleResponse;
 import com.yyc.sms.dto.SmsSendCmd;
 import com.yyc.sms.dto.data.SmsDTO;
 import com.yyc.sms.dto.data.SmsResponseDTO;
+import com.yyc.sms.dto.qry.SmsQry;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 10916
@@ -22,10 +22,18 @@ public interface SmsServiceI {
     SmsResponseDTO send(SmsSendCmd smsSendCmd);
 
     /**
-     * 通过 outId 列表获取短信信息
+     * 获取短信
      *
-     * @param outIds
+     * @param smsQry
      * @return
      */
-    List<SmsDTO> getSmsByOutIds(String... outIds);
+    List<SmsDTO> getSms(SmsQry smsQry);
+
+    /**
+     * 消费smsUp 业务数据
+     *
+     * @param contentMap 返回数据
+     * @return
+     */
+    boolean dealSmsUpBusiness(Map<String, Object> contentMap);
 }

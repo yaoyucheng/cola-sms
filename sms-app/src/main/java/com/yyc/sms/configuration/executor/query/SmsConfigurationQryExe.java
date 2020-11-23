@@ -1,7 +1,7 @@
 package com.yyc.sms.configuration.executor.query;
 
 import com.yyc.sms.domain.sms.gateway.SmsConfigurationGateway;
-import com.yyc.sms.dto.SmsConfigurationQry;
+import com.yyc.sms.dto.qry.SmsConfigurationQry;
 import com.yyc.sms.dto.data.SmsConfigurationDTO;
 import org.springframework.stereotype.Component;
 

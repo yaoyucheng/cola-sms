@@ -5,10 +5,12 @@ import com.yyc.sms.api.SmsServiceI;
 import com.yyc.sms.dto.SmsSendCmd;
 import com.yyc.sms.dto.data.SmsDTO;
 import com.yyc.sms.dto.data.SmsResponseDTO;
+import com.yyc.sms.dto.qry.SmsQry;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,6 +42,9 @@ public class SmsController {
      */
     @GetMapping
     public SingleResponse<List<SmsDTO>> get(@RequestParam String smsUpExtendCodes) {
-        return SingleResponse.of(smsServiceI.getSmsByOutIds(smsUpExtendCodes.split(",")));
+        return SingleResponse.of(smsServiceI.getSms(
+                SmsQry.builder().
+                        identifiesList(Arrays.asList(smsUpExtendCodes.split(",")))
+                        .build()));
     }
 }

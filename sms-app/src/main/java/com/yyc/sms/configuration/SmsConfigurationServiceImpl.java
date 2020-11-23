@@ -4,7 +4,7 @@ import com.alibaba.cola.exception.BizException;
 import com.yyc.sms.api.SmsConfigurationServiceI;
 import com.yyc.sms.configuration.executor.CheckInitializationExe;
 import com.yyc.sms.configuration.executor.query.SmsConfigurationQryExe;
-import com.yyc.sms.dto.SmsConfigurationQry;
+import com.yyc.sms.dto.qry.SmsConfigurationQry;
 import com.yyc.sms.dto.data.SmsConfigurationDTO;
 import com.yyc.sms.expetion.ErrorCode;
 import org.springframework.stereotype.Service;

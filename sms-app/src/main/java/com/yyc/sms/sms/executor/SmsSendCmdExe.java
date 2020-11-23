@@ -31,7 +31,7 @@ public class SmsSendCmdExe {
         //  check parameter 传参不可为空
         checkParameter(smsSendCmd);
 
-        //  短信全局唯一标识，短信上行扩展字段
+        //  短信上行扩展字段
         String smsUpExtendCode = getSmsUpExtendCode();
 
         //  短信全局唯一标识
@@ -47,7 +47,7 @@ public class SmsSendCmdExe {
         smsGateway.update(identifies, buildUpdateSms(smsResponse));
 
         //  构造标准返回信息返回
-        return buildSmsResponseDTO(smsResponse, smsUpExtendCode);
+        return buildSmsResponseDTO(smsResponse, identifies);
     }
 
     private String getIdentifies() {
@@ -79,7 +79,10 @@ public class SmsSendCmdExe {
      * @param smsResponse
      * @return
      */
-    private SmsResponseDTO buildSmsResponseDTO(@NonNull SmsResponse smsResponse, @NonNull String smsUpExtendCode) {
+    private SmsResponseDTO buildSmsResponseDTO(
+            @NonNull SmsResponse smsResponse,
+            @NonNull String identifies) {
+
         //  构造标准返回值
         return SmsResponseDTO.builder()
 
@@ -90,7 +93,7 @@ public class SmsSendCmdExe {
                 .requestId(smsResponse.getRequestId())
 
                 //  短信全局唯一标识
-                .smsUpExtendCode(smsUpExtendCode)
+                .identifies(identifies)
                 .build();
     }
 

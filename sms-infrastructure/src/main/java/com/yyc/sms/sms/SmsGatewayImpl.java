@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yyc.sms.domain.sms.entity.Sms;
 import com.yyc.sms.domain.sms.gateway.SmsGateway;
+import com.yyc.sms.domain.util.CollectionCopyUtil;
 import com.yyc.sms.dto.data.SmsDTO;
+import com.yyc.sms.dto.qry.SmsQry;
 import lombok.NonNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -49,14 +51,16 @@ public class SmsGatewayImpl implements SmsGateway {
     }
 
     @Override
-    public List<SmsDTO> getSmsByOutIdsExe(String... smsUpExtendCodes) {
+    public List<SmsDTO> list(@NonNull SmsQry smsQry) {
 
         QueryWrapper<SmsDO> wrapper = new QueryWrapper<>();
 
+        wrapper
+                .eq("sms_up_extend_code", smsQry.getSmsUpExtendCode())
+                .eq("identifies", smsQry.getIdentifies())
+                .in("identifies", smsQry.getIdentifiesList());
 
-//        wrapper.ge("",)
-//        Wrapper<SmsDO> wrapper =
-//        return smsMapper.selectList(null);
-        return null;
+        return CollectionCopyUtil.copyList(smsMapper.selectList(wrapper), SmsDTO.class);
     }
+
 }

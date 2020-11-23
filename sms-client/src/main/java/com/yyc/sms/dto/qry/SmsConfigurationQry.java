@@ -1,4 +1,4 @@
-package com.yyc.sms.dto;
+package com.yyc.sms.dto.qry;
 
 import lombok.Builder;
 import lombok.Data;

@@ -21,5 +21,5 @@ public class SmsResponseDTO {
     /**
      * 短信唯一标识
      */
-    private String smsUpExtendCode;
+    private String identifies;
 }

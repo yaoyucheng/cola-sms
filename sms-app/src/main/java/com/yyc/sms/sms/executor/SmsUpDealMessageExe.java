@@ -3,9 +3,11 @@ package com.yyc.sms.sms.executor;
 import com.alicom.mns.tools.MessageListener;
 import com.aliyun.mns.model.Message;
 import com.google.gson.Gson;
+import com.yyc.sms.api.SmsServiceI;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,14 +18,25 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class SmsReceiverDealMessageExe implements MessageListener {
+public class SmsUpDealMessageExe implements MessageListener {
 
     private Gson gson = new Gson();
 
+    @Resource
+    private SmsServiceI smsServiceI;
+
+    /**
+     * 消息处理成功，返回true, SDK将调用MNS的delete方法将消息从队列中删除掉
+     *
+     * @param message
+     * @return
+     */
     @Override
     public boolean dealMessage(Message message) {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String requestId = message.getRequestId();
 
         //消息的几个关键值
         log.info("message receiver time from mns: {}" + format.format(new Date()));
@@ -36,10 +49,13 @@ public class SmsReceiverDealMessageExe implements MessageListener {
         try {
             Map<String, Object> contentMap = gson.fromJson(message.getMessageBodyAsString(), HashMap.class);
 
-            //TODO 根据文档中具体的消息格式进行消息体的解析
-            String content = (String) contentMap.get("content");
-
-            //TODO 这里开始编写您的业务代码
+            /**
+             * 消费短信上行数据
+             *
+             * 1、这里开始编写您的业务代码
+             * 2、根据文档中具体的消息格式进行消息体的解析
+             */
+            return smsServiceI.dealSmsUpBusiness(contentMap);
 
         } catch (com.google.gson.JsonSyntaxException e) {
             log.error("error_json_format:" + message.getMessageBodyAsString(), e);
@@ -50,7 +66,5 @@ public class SmsReceiverDealMessageExe implements MessageListener {
             return false;
         }
 
-        //消息处理成功，返回true, SDK将调用MNS的delete方法将消息从队列中删除掉
-        return true;
     }
 }

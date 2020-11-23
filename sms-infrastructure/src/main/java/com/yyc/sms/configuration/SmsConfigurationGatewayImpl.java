@@ -5,7 +5,7 @@ import cn.hutool.cache.impl.FIFOCache;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yyc.sms.domain.sms.gateway.SmsConfigurationGateway;
 import com.yyc.sms.domain.util.CollectionCopyUtil;
-import com.yyc.sms.dto.SmsConfigurationQry;
+import com.yyc.sms.dto.qry.SmsConfigurationQry;
 import com.yyc.sms.dto.data.SmsConfigurationDTO;
 import lombok.NonNull;
 import org.springframework.beans.BeanUtils;
