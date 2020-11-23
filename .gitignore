@@ -1,5 +1,6 @@
 target/
 
+start/src/main/resources/application.properties
 ### eclipse ###
 .apt_generated
 .classpath
@@ -25,3 +26,4 @@ bin/
 doc/
 .DS_Store
 sms-domain/lib/*
+
