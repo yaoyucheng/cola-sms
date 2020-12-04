@@ -2,6 +2,8 @@ package com.yyc.sms.dto.data;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author 10916
  */
@@ -82,5 +84,10 @@ public class SmsDTO {
      * accessKey
      */
     private String accessKey;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
 }

@@ -4,6 +4,7 @@ import com.yyc.sms.dto.SmsSendCmd;
 import com.yyc.sms.dto.data.SmsDTO;
 import com.yyc.sms.dto.data.SmsResponseDTO;
 import com.yyc.sms.dto.qry.SmsQry;
+import lombok.NonNull;
 
 import java.util.List;
 import java.util.Map;
@@ -36,4 +37,12 @@ public interface SmsServiceI {
      * @return
      */
     boolean dealSmsUpBusiness(Map<String, Object> contentMap);
+
+    /**
+     * 消费短信
+     *
+     * @param identifies 唯一标识
+     * @param content    短信内容
+     */
+    void consumptionSms(@NonNull String identifies, @NonNull String content);
 }

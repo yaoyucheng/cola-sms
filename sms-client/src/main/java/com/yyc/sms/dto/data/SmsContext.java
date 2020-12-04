@@ -11,6 +11,16 @@ import lombok.Data;
 public class SmsContext {
 
     /**
+     * 产品名称:云通信短信API产品
+     */
+    public static final String PRODUCT = "Dysmsapi";
+
+    /**
+     * 产品域名
+     */
+    private String domain;
+
+    /**
      * accessKey
      */
     private String accessKey;

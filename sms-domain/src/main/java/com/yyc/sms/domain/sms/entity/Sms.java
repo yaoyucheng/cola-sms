@@ -84,4 +84,9 @@ public class Sms {
      * accessKey
      */
     private String accessKey;
+
+    /**
+     * 短信回复内容
+     */
+    private String replyContent;
 }

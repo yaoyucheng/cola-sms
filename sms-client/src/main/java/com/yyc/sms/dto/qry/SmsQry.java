@@ -24,6 +24,11 @@ public class SmsQry {
     private String identifies;
 
     /**
+     * 电话
+     */
+    private String phoneNumber;
+
+    /**
      * 短信唯一标识code 集合
      */
     private List<String> identifiesList;

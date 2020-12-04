@@ -63,6 +63,7 @@ public class SmsContentAspect {
                 SmsContext.builder()
                         .accessKey(configuration.getAccessKey())
                         .accessKeySecret(configuration.getAccessKeySecret())
+                        .domain(configuration.getDomain())
                         .build());
     }
 

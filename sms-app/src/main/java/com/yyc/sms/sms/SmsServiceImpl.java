@@ -5,6 +5,7 @@ import com.yyc.sms.dto.SmsSendCmd;
 import com.yyc.sms.dto.data.SmsDTO;
 import com.yyc.sms.dto.data.SmsResponseDTO;
 import com.yyc.sms.dto.qry.SmsQry;
+import com.yyc.sms.sms.executor.SmsConsumptionExe;
 import com.yyc.sms.sms.executor.SmsSendCmdExe;
 import com.yyc.sms.sms.executor.SmsUpBusinessDealExe;
 import com.yyc.sms.sms.executor.query.SmsQryExe;
@@ -31,6 +32,9 @@ public class SmsServiceImpl implements SmsServiceI {
     @Resource
     private SmsQryExe smsQryExe;
 
+    @Resource
+    private SmsConsumptionExe smsConsumptionExe;
+
     /**
      * 发送消息
      *
@@ -56,5 +60,10 @@ public class SmsServiceImpl implements SmsServiceI {
     @Override
     public boolean dealSmsUpBusiness(Map<String, Object> contentMap) {
         return smsUpBusinessDealExe.dealSmsUpBusiness(contentMap);
+    }
+
+    @Override
+    public void consumptionSms(@NonNull String identifies, @NonNull String content) {
+        smsConsumptionExe.consumptionSms(identifies, content);
     }
 }

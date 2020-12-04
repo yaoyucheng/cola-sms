@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -76,22 +77,25 @@ public class SmsUpBusinessDealExe {
         //  扩展码
         String destCode = (String) contentMap.get(CONTENT_MAP_DEST_CODE);
 
-        SmsDTO smsDTO = getSmsDTO(destCode, phoneNumber);
+        SmsDTO smsDTO = getSmsDTO(phoneNumber);
 
-        return false;
+        consumptionSms(smsDTO.getIdentifies(), content);
+
+        return true;
     }
 
-    private SmsDTO getSmsDTO(String destCode, String phoneNumber) {
+    private void consumptionSms(@NonNull String identifies, @NonNull String content) {
 
-        List<SmsDTO> sms = smsServiceI.getSms(buildSmsQry(destCode));
+    }
+
+    private SmsDTO getSmsDTO(String phoneNumber) {
+
+        List<SmsDTO> sms = smsServiceI.getSms(buildSmsQry(phoneNumber));
 
         if (sms == null || sms.isEmpty()) {
             //  数据异常
             throw new BizException(ErrorCode.SMS_UP_DATA_NULL, "基础啊数据为空");
         }
-
-        //  过滤非上行号码数据
-        sms.stream().filter(value -> value.getPhoneNumberJson().indexOf(phoneNumber) > -1).collect(Collectors.toList());
 
         if (sms == null || sms.isEmpty()) {
             //  数据异常
@@ -100,7 +104,7 @@ public class SmsUpBusinessDealExe {
 
         if (sms.size() > 1) {
             //  数据重复，数据做过滤
-
+            sms = sms.stream().sorted(Comparator.comparing(SmsDTO::getCreateTime).reversed()).collect(Collectors.toList());
         }
         return sms.get(0);
     }
@@ -110,10 +114,10 @@ public class SmsUpBusinessDealExe {
      *
      * @return
      */
-    private SmsQry buildSmsQry(@NonNull String destCode) {
+    private SmsQry buildSmsQry(@NonNull String phoneNumber) {
 
         return SmsQry.builder()
-                .smsUpExtendCode(destCode)
+                .phoneNumber(phoneNumber)
                 .build();
     }
 }

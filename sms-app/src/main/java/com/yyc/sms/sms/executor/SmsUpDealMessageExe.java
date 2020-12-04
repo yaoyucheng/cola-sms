@@ -63,6 +63,7 @@ public class SmsUpDealMessageExe implements MessageListener {
             return true;
         } catch (Throwable e) {
             //您自己的代码部分导致的异常，应该return false,这样消息不会被delete掉，而会根据策略进行重推
+            log.error("error",e);
             return false;
         }
 

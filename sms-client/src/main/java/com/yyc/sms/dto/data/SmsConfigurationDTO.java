@@ -28,6 +28,11 @@ public class SmsConfigurationDTO {
      */
     private String queueName;
 
+    /**
+     * 产品域名
+     */
+    private String domain;
+
     public boolean filter(SmsConfigurationDTO qry) {
 
         return true;

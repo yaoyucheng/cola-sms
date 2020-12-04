@@ -8,6 +8,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.aliyuncs.regions.ProductDomain;
 import com.yyc.sms.domain.sms.entity.Sms;
 import com.yyc.sms.domain.sms.entity.SmsResponse;
 import com.yyc.sms.domain.util.JsonUtils;
@@ -69,12 +70,24 @@ public class SmsSender {
         //组装请求对象-具体描述见控制台-文档部分内容
         SendSmsRequest request = new SendSmsRequest();
 
+//        ProductDomain productDomain = new ProductDomain(SmsContext.PRODUCT, "127.0.0.1:6666");
+//
+//        request.setSysProductDomain(productDomain);
+
+
+        //新增代理
+        System.setProperty("http.proxySet", "true");
+
+        System.setProperty("http.proxyHost", "192.168.3.18");
+
+        System.setProperty("http.proxyPort", "" + 6666);
+
         //必填:待发送手机号
         request.setPhoneNumbers(phoneNumbers);
 
         //选填:短信上行code
         request.setSmsUpExtendCode(smsUpExtendCode);
-        
+
         //必填:短信签名-可在短信控制台中找到
         request.setSignName(signName);
 

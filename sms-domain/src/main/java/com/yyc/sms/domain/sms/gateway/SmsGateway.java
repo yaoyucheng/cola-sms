@@ -21,10 +21,10 @@ public interface SmsGateway {
     /**
      * 更新短信信息
      *
-     * @param smsUpExtendCode 唯一标识
-     * @param sms
+     * @param identifies 唯一标识
+     * @param sms        短信
      */
-    void update(String smsUpExtendCode, Sms sms);
+    void update(String identifies, Sms sms);
 
     /**
      * 获取短信列表
