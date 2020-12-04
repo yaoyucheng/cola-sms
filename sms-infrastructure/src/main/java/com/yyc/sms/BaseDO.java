@@ -28,7 +28,7 @@ public class BaseDO {
      * id
      */
     @Column(name = "id", type = MySqlTypeConstant.VARCHAR, length = 50, isKey = true, comment = "id")
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    @TableId(value = "id", type = IdType.UUID)
     private String id;
 
     /**

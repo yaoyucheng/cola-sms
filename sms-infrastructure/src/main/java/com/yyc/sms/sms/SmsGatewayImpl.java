@@ -55,17 +55,16 @@ public class SmsGatewayImpl implements SmsGateway {
 
         QueryWrapper<SmsDO> wrapper = new QueryWrapper<>();
 
-        wrapper
-                //  查询
-                .eq("sms_up_extend_code", smsQry.getSmsUpExtendCode())
+        //  查询
+        wrapper.eq("sms_up_extend_code", smsQry.getSmsUpExtendCode())
                 .eq("identifies", smsQry.getIdentifies())
                 .like("phone_number", smsQry.getPhoneNumber())
                 .in("identifies", smsQry.getIdentifiesList())
-
-                //  排序
                 .orderByDesc("create_time");
 
-        return CollectionCopyUtil.copyList(smsMapper.selectList(wrapper), SmsDTO.class);
+        List<SmsDO> smsDOS = smsMapper.selectList(wrapper);
+
+        return CollectionCopyUtil.copyList(smsDOS, SmsDTO.class);
     }
 
 }

@@ -85,7 +85,7 @@ public class SmsUpBusinessDealExe {
     }
 
     private void consumptionSms(@NonNull String identifies, @NonNull String content) {
-
+        smsServiceI.consumptionSms(identifies, content);
     }
 
     private SmsDTO getSmsDTO(String phoneNumber) {

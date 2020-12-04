@@ -3,7 +3,7 @@ package com.yyc.sms.dto.qry;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,5 +31,5 @@ public class SmsQry {
     /**
      * 短信唯一标识code 集合
      */
-    private List<String> identifiesList;
+    private List<String> identifiesList = new ArrayList<>();
 }

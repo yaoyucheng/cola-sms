@@ -117,4 +117,11 @@ public class SmsDO extends BaseDO {
     @Column(name = "sms_access_key", type = MySqlTypeConstant.VARCHAR, comment = "唯一标识")
     @TableField(value = "sms_access_key")
     private String accessKey;
+
+    /**
+     * 短信回复内容
+     */
+    @Column(name = "sms_reply_content", type = MySqlTypeConstant.VARCHAR, comment = "短信回复内容")
+    @TableField(value = "sms_reply_content")
+    private String replyContent;
 }
