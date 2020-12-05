@@ -36,10 +36,8 @@ public class SmsUpDealMessageExe implements MessageListener {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        String requestId = message.getRequestId();
-
         //消息的几个关键值
-        log.info("message receiver time from mns: {}" + format.format(new Date()));
+        log.info("message receiver t ime from mns: {}" + format.format(new Date()));
         log.info("message handle: {}" + message.getReceiptHandle());
         log.info("message body: {}" + message.getMessageBodyAsString());
         log.info("message id: {}" + message.getMessageId());
