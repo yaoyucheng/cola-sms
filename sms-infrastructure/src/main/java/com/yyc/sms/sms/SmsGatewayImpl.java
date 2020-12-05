@@ -1,5 +1,6 @@
 package com.yyc.sms.sms;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yyc.sms.domain.sms.entity.Sms;
@@ -53,14 +54,13 @@ public class SmsGatewayImpl implements SmsGateway {
     @Override
     public List<SmsDTO> list(@NonNull SmsQry smsQry) {
 
-        QueryWrapper<SmsDO> wrapper = new QueryWrapper<>();
-
         //  查询
-        wrapper.eq("sms_up_extend_code", smsQry.getSmsUpExtendCode())
-                .eq("identifies", smsQry.getIdentifies())
-                .like("phone_number", smsQry.getPhoneNumber())
-                .in("identifies", smsQry.getIdentifiesList())
-                .orderByDesc("create_time");
+        Wrapper<SmsDO> wrapper = new QueryWrapper<SmsDO>()
+                .eq(false, "sms_up_extend_code", smsQry.getSmsUpExtendCode())
+                .eq(false, "sms_identifies", smsQry.getIdentifies())
+                .like(false, "sms_phone_number_json", smsQry.getPhoneNumber())
+                .in(false, "sms_identifies", smsQry.getIdentifiesList())
+                .orderByDesc(false, "create_time");
 
         List<SmsDO> smsDOS = smsMapper.selectList(wrapper);
 

@@ -79,6 +79,7 @@ public class SmsUpBusinessDealExe {
 
         SmsDTO smsDTO = getSmsDTO(phoneNumber);
 
+        //  消费执行过的短信
         consumptionSms(smsDTO.getIdentifies(), content);
 
         return true;
