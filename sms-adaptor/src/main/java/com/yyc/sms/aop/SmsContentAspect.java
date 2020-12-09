@@ -35,7 +35,7 @@ public class SmsContentAspect {
      * 定义切入点，切入点为 com.yyc.sms.aop.web.SmsController 中的所有函数
      * 通过@Pointcut注解声明频繁使用的切点表达式
      */
-    @Pointcut("execution(public * com.yyc.sms.web.SmsController.*(..)))")
+    @Pointcut("execution(public * com.yyc.sms.web.SmsController.send(..)))")
     public void smsContentAspect() {
         //  do nothing
     }

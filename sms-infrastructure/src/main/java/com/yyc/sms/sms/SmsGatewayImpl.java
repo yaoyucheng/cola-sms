@@ -56,11 +56,11 @@ public class SmsGatewayImpl implements SmsGateway {
 
         //  查询
         Wrapper<SmsDO> wrapper = new QueryWrapper<SmsDO>()
-                .eq(false, "sms_up_extend_code", smsQry.getSmsUpExtendCode())
-                .eq(false, "sms_identifies", smsQry.getIdentifies())
-                .like(false, "sms_phone_number_json", smsQry.getPhoneNumber())
-                .in(false, "sms_identifies", smsQry.getIdentifiesList())
-                .orderByDesc(false, "create_time");
+                .eq(smsQry.getSmsUpExtendCode() != null, "sms_up_extend_code", smsQry.getSmsUpExtendCode())
+                .eq(smsQry.getIdentifies() != null, "sms_identifies", smsQry.getIdentifies())
+                .like(smsQry.getPhoneNumber() != null, "sms_phone_number_json", smsQry.getPhoneNumber())
+                .in(smsQry.getIdentifiesList() != null, "sms_identifies", smsQry.getIdentifiesList())
+                .orderByDesc("create_time");
 
         List<SmsDO> smsDOS = smsMapper.selectList(wrapper);
 
